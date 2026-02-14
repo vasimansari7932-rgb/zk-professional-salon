@@ -47,6 +47,7 @@
 
 <body class="admin-page">
     <div class="admin-layout">
+        <div class="sidebar-overlay"></div>
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -86,9 +87,14 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="header-row">
-                <div>
-                    <h1>Product Management</h1>
-                    <p style="color: var(--text-secondary);">Manage salon inventory and frontend display</p>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="menu-toggle">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <div>
+                        <h1>Product Management</h1>
+                        <p style="color: var(--text-secondary);">Manage salon inventory and frontend display</p>
+                    </div>
                 </div>
                 <button class="btn-primary" onclick="openAddModal()">
                     <i data-lucide="plus"></i> Add Product
@@ -96,21 +102,23 @@
             </div>
 
             <div class="table-container">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Created Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productList">
-                        <!-- Products will be loaded here -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Created Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productList">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>

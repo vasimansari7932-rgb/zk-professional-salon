@@ -31,6 +31,42 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('dashboard.html')) {
         loadDashboardStats();
     }
+
+    // Mobile Menu Toggle logic
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    if (menuToggle && sidebar && overlay) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Close sidebar on link click (mobile)
+        const navLinks = sidebar.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    }
+
+    // Auto-fix sidebar on window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024 && sidebar && overlay) {
+            if (sidebar) sidebar.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+        }
+    });
 });
 
 // Helper for local date string (YYYY-MM-DD)

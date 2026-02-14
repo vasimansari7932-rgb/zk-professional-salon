@@ -12,6 +12,7 @@
 
 <body class="admin-page">
     <div class="admin-layout">
+        <div class="sidebar-overlay"></div>
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -50,7 +51,12 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="header-row">
-                <h1>Booking Management</h1>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="menu-toggle">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1>Booking Management</h1>
+                </div>
                 <div class="filters" style="display: flex; gap: 1rem;">
                     <select id="barberFilter">
                         <option value="all">All Barbers</option>
@@ -65,23 +71,25 @@
             </div>
 
             <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Mobile</th>
-                            <th>Service</th>
-                            <th>Date & Time</th>
-                            <th>Barber</th>
-                            <th>Price (₹)</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bookingsTable">
-                        <!-- Rows populated by JS -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Mobile</th>
+                                <th>Service</th>
+                                <th>Date & Time</th>
+                                <th>Barber</th>
+                                <th>Price (₹)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTable">
+                            <!-- Rows populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>

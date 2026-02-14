@@ -12,6 +12,7 @@
 
 <body class="admin-page">
     <div class="admin-layout">
+        <div class="sidebar-overlay"></div>
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -35,9 +36,14 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="header-row">
-                <div>
-                    <h1>Staff Dashboard</h1>
-                    <p style="color: var(--text-secondary);">Manage your daily schedule and earnings</p>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="menu-toggle">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <div>
+                        <h1>Staff Dashboard</h1>
+                        <p style="color: var(--text-secondary);">Manage your daily schedule and earnings</p>
+                    </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 1.5rem;">
                     <button class="btn-primary" onclick="openManualBookingModal()">

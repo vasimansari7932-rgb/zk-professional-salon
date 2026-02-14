@@ -12,6 +12,7 @@
 
 <body class="admin-page">
     <div class="admin-layout">
+        <div class="sidebar-overlay"></div>
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -50,7 +51,12 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="header-row">
-                <h1>Employee Management</h1>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="menu-toggle">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1>Employee Management</h1>
+                </div>
                 <button class="btn-primary" id="addEmpBtn">+ Add Employee</button>
             </div>
 

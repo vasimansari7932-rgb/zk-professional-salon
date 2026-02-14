@@ -12,6 +12,7 @@
 
 <body class="admin-page">
     <div class="admin-layout">
+        <div class="sidebar-overlay"></div>
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -50,7 +51,12 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="header-row">
-                <h1>Dashboard Overview</h1>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="menu-toggle">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1>Dashboard Overview</h1>
+                </div>
                 <div class="user-greeting">
                     <span>Welcome, <strong id="adminName">Admin</strong></span>
                 </div>
@@ -105,20 +111,22 @@
                     <h2>Recent Appointments</h2>
                     <a href="bookings.html" class="text-gold" style="font-size: 0.9rem;">View All</a>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Service</th>
-                            <th>Date & Time</th>
-                            <th>Barber</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="recentBookingsTable">
-                        <!-- Rows populated by JS -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Service</th>
+                                <th>Date & Time</th>
+                                <th>Barber</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentBookingsTable">
+                            <!-- Rows populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>
