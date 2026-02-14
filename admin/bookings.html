@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Management | ZK Salon Admin</title>
+    <link rel="stylesheet" href="../styles/variables.css">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="admin-page">
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h2 class="text-gold">ZK Salon</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="bookings.html" class="nav-link active">
+                    <i data-lucide="calendar"></i>
+                    <span>Bookings</span>
+                </a>
+                <a href="employees.html" class="nav-link">
+                    <i data-lucide="users"></i>
+                    <span>Employees</span>
+                </a>
+                <a href="services.html" class="nav-link">
+                    <i data-lucide="scissors"></i>
+                    <span>Services</span>
+                </a>
+                <a href="products.html" class="nav-link">
+                    <i data-lucide="package"></i>
+                    <span>Products</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logoutBtn" class="nav-link">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header-row">
+                <h1>Booking Management</h1>
+                <div class="filters" style="display: flex; gap: 1rem;">
+                    <select id="barberFilter">
+                        <option value="all">All Barbers</option>
+                    </select>
+                    <select id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="completed">Completed</option>
+                        <option value="noshow">Not Come</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Mobile</th>
+                            <th>Service</th>
+                            <th>Date & Time</th>
+                            <th>Barber</th>
+                            <th>Price (₹)</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTable">
+                        <!-- Rows populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../scripts/api-config.js"></script>
+    <script src="admin.js"></script>
+    <script src="admin-bookings.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

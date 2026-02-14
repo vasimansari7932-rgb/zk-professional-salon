@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | ZK Salon Admin</title>
+    <link rel="stylesheet" href="../styles/variables.css">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="admin-page">
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h2 class="text-gold">ZK Salon</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link active">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="bookings.html" class="nav-link">
+                    <i data-lucide="calendar"></i>
+                    <span>Bookings</span>
+                </a>
+                <a href="employees.html" class="nav-link">
+                    <i data-lucide="users"></i>
+                    <span>Employees</span>
+                </a>
+                <a href="services.html" class="nav-link">
+                    <i data-lucide="scissors"></i>
+                    <span>Services</span>
+                </a>
+                <a href="products.html" class="nav-link">
+                    <i data-lucide="package"></i>
+                    <span>Products</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logoutBtn" class="nav-link">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header-row">
+                <h1>Dashboard Overview</h1>
+                <div class="user-greeting">
+                    <span>Welcome, <strong id="adminName">Admin</strong></span>
+                </div>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(212, 175, 55, 0.1); color: var(--accent-gold);">
+                        <i data-lucide="indian-rupee"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Amount Today</h3>
+                        <div class="value" id="statTodayRevenue">₹0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Amount Month</h3>
+                        <div class="value" id="statMonthRevenue">₹0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i data-lucide="calendar-days"></i></div>
+                    <div class="stat-info">
+                        <h3>Bookings Today</h3>
+                        <div class="value" id="statTodayBookings">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i data-lucide="check-circle"></i></div>
+                    <div class="stat-info">
+                        <h3>Completed</h3>
+                        <div class="value" id="statCompleted">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i data-lucide="clock"></i></div>
+                    <div class="stat-info">
+                        <h3>Upcoming</h3>
+                        <div class="value" id="statUpcoming">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>Recent Appointments</h2>
+                    <a href="bookings.html" class="text-gold" style="font-size: 0.9rem;">View All</a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Date & Time</th>
+                            <th>Barber</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentBookingsTable">
+                        <!-- Rows populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../scripts/api-config.js"></script>
+    <script src="admin.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

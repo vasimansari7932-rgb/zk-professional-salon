@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | ZK Professional Salon</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* Page specific styles */
+        body {
+            padding-top: 80px;
+            /* Space for fixed header */
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i data-lucide="scissors"></i> ZK Professional Salon
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="index.html#reviews">Reviews</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="#" class="btn-primary js-open-booking"
+                            style="padding: 8px 16px; font-size: 0.8rem;">Book
+                            Now</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-header">
+        <h1 class="section-title" style="margin-bottom: 0.5rem;">Our Products</h1>
+        <p style="color: var(--text-secondary);">Premium grooming essentials for the modern man</p>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <div id="productsGrid" class="products-grid">
+                <!-- Products will be loaded dynamically here -->
+                <div class="loading-state" style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                    <div class="loader" style="margin: 0 auto 1rem;"></div>
+                    <p style="color: var(--text-secondary);">Loading premium products...</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-lg">
+                <a href="index.html" class="btn-primary">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="text-center mt-lg">
+        <a href="index.html" class="btn-primary">Back to Home</a>
+    </div>
+    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ZK Professional Salon</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Professional Grooming. Premium Style.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="social-icon"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="social-icon"><i data-lucide="twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="products.html">Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#" class="js-open-booking">Hair Cut</a></li>
+                        <li><a href="#" class="js-open-booking">Beard Styling</a></li>
+                        <li><a href="#" class="js-open-booking">Hair Spa</a></li>
+                        <li><a href="#" class="js-open-booking">Weddings</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 ZK Professional Salon. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="section-title">Book an Appointment</h2>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" class="form-control" required
+                        placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" name="mobile" class="form-control" required placeholder="9876543210">
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Select Service</label>
+                    <select id="service" name="service" class="form-control" required>
+                        <option value="">Choose a Service...</option>
+                        <option value="Hair Cut">Hair Cut & Styling</option>
+                        <option value="Beard Trim">Beard Trim & Styling</option>
+                        <option value="Hair Spa">Hair Spa Treatment</option>
+                        <option value="Face Cleanup">Face Cleanup</option>
+                        <option value="Full Package">Complete Grooming Package</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="display: flex; gap: 1rem;">
+                    <div style="flex: 1;">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" name="date" class="form-control" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="time">Time</label>
+                        <select id="time" name="time" class="form-control" required>
+                            <option value="">Select Time</option>
+                            <!-- Time slots generated by JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Confirm
+                    Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">For success message</div>
+
+    <!-- Init Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="scripts/api-config.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/products.js"></script>
+</body>
+
+</html>

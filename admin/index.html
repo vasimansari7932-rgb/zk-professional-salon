@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | ZK Professional Salon</title>
+    <link rel="stylesheet" href="../styles/variables.css">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-box card-premium">
+            <div class="login-header">
+                <h1 class="text-gold">ZK Salon</h1>
+                <p>Management Portal</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i data-lucide="mail"></i>
+                        <input type="email" id="email" placeholder="admin@zksalon.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i data-lucide="lock"></i>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">
+                    Sign In
+                </button>
+            </form>
+
+            <div id="loginError" class="error-message"
+                style="display: none; color: #ff5252; text-align: center; margin-top: 1rem; font-size: 0.9rem;">
+                Invalid email or password.
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/api-config.js"></script>
+    <script src="admin-login.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

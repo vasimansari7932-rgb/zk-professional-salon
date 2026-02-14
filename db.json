@@ -1,0 +1,104 @@
+{
+  "admin": {
+    "email": "admin@zksalon.com",
+    "password": "admin",
+    "name": "Super Admin"
+  },
+  "employees": [
+    {
+      "id": "e1-vasim",
+      "name": "Vasim Khan",
+      "email": "vasim@zksalon.com",
+      "password": "pass",
+      "mobile": "9876543210",
+      "role": "employee",
+      "isActive": true
+    },
+    {
+      "id": "e2-shahid",
+      "name": "Shahid Ali",
+      "email": "shahid@zksalon.com",
+      "password": "pass",
+      "mobile": "9876543211",
+      "role": "employee",
+      "isActive": true
+    },
+    {
+      "id": "13bc768d-66d3-46f1-863a-72d41091d3c7",
+      "name": "Tester Staff",
+      "email": "tester@zksalon.com",
+      "password": "pass",
+      "mobile": "9999999999",
+      "role": "employee",
+      "isActive": true
+    }
+  ],
+  "services": [
+    {
+      "id": "s1",
+      "name": "Premium Haircut",
+      "price": 25,
+      "duration": 30,
+      "isActive": true
+    },
+    {
+      "id": "s2",
+      "name": "Beard Styling",
+      "price": 15,
+      "duration": 20,
+      "isActive": true
+    }
+  ],
+  "bookings": [
+    {
+      "id": "b1",
+      "customerName": "John Doe",
+      "mobile": "1234567890",
+      "serviceId": "s1",
+      "serviceName": "Haircut",
+      "date": "2026-02-15",
+      "time": "10:00",
+      "barberId": "e1-vasim",
+      "barberName": "Vasim Khan",
+      "status": "completed",
+      "price": 500
+    },
+    {
+      "id": "b2",
+      "customerName": "Jane Smith",
+      "mobile": "0987654321",
+      "serviceId": "s1",
+      "serviceName": "Haircut",
+      "date": "2026-02-15",
+      "time": "11:00",
+      "barberId": "13bc768d-66d3-46f1-863a-72d41091d3c7",
+      "barberName": "Tester Staff",
+      "status": "completed",
+      "price": 750
+    },
+    {
+      "id": "b3",
+      "customerName": "Sam Altman",
+      "mobile": "5556667777",
+      "serviceId": "s1",
+      "serviceName": "Haircut",
+      "date": "2026-02-15",
+      "time": "12:00",
+      "barberId": "e1-vasim",
+      "barberName": "Vasim Khan",
+      "status": "upcoming",
+      "price": 0
+    }
+  ],
+  "products": [
+    {
+      "id": "6f4c6fb5-79bf-4e46-903f-9d39265e29f9",
+      "name": "test",
+      "description": "test",
+      "price": 1000.0,
+      "isActive": true,
+      "image": "/uploads/2297c201-4c1e-4e80-8dea-b2d7a2400bbf.png",
+      "createdAt": "2026-02-15 03:59:59"
+    }
+  ]
+}

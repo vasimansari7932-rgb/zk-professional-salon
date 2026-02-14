@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management | ZK Salon Admin</title>
+    <link rel="stylesheet" href="../styles/variables.css">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .product-thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .image-preview-container {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed var(--glass-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .placeholder-text {
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body class="admin-page">
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i data-lucide="scissors" class="text-gold" style="margin-right: 10px;"></i>
+                <h2 class="text-gold">ZK Salon</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="bookings.html" class="nav-link">
+                    <i data-lucide="calendar"></i>
+                    <span>Bookings</span>
+                </a>
+                <a href="employees.html" class="nav-link">
+                    <i data-lucide="users"></i>
+                    <span>Employees</span>
+                </a>
+                <a href="services.html" class="nav-link">
+                    <i data-lucide="scissors"></i>
+                    <span>Services</span>
+                </a>
+                <a href="products.html" class="nav-link active">
+                    <i data-lucide="package"></i>
+                    <span>Products</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logoutBtn" class="nav-link">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header-row">
+                <div>
+                    <h1>Product Management</h1>
+                    <p style="color: var(--text-secondary);">Manage salon inventory and frontend display</p>
+                </div>
+                <button class="btn-primary" onclick="openAddModal()">
+                    <i data-lucide="plus"></i> Add Product
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productList">
+                        <!-- Products will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="admin-modal" style="display: none;">
+        <div class="admin-modal-content glass-effect" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Product</h2>
+                <button onclick="closeModal()" class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+
+                    <div class="image-preview-container" id="previewContainer">
+                        <img id="imagePreview" src="" style="display: none;">
+                        <div class="placeholder-text" id="placeholder">
+                            <i data-lucide="image" style="width: 40px; height: 40px; margin-bottom: 10px;"></i>
+                            <p>Upload Product Image</p>
+                            <span style="font-size: 0.7rem;">JPEG, PNG accepted</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Product Image</label>
+                        <input type="file" id="productImage" class="form-control" accept="image/*"
+                            onchange="previewImage(this)">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" id="productName" required class="form-control" placeholder="Strong Hold Wax">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="productDesc" required class="form-control"
+                            placeholder="Matte finish, long lasting hold..." rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row" style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex:1;">
+                            <label>Price (₹)</label>
+                            <input type="number" id="productPrice" required class="form-control" placeholder="299">
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Status</label>
+                            <select id="productStatus" class="form-control">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" style="padding: 1rem 0 0;">
+                        <button type="button" onclick="closeModal()" class="btn-secondary">Cancel</button>
+                        <button type="submit" class="btn-primary" id="saveBtn">Save Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/api-config.js"></script>
+    <script src="admin.js"></script>
+    <script src="admin-products.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard | ZK Salon</title>
+    <link rel="stylesheet" href="../styles/variables.css">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="admin-page">
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i data-lucide="scissors" class="text-gold"></i>
+                <h2 class="text-gold">ZK Salon</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="employee-dashboard.html" class="nav-link active">
+                    <i data-lucide="calendar"></i>
+                    <span>My Schedule</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logoutBtn" class="nav-link">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header-row">
+                <div>
+                    <h1>Staff Dashboard</h1>
+                    <p style="color: var(--text-secondary);">Manage your daily schedule and earnings</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <button class="btn-primary" onclick="openManualBookingModal()">
+                        <i data-lucide="plus"></i> Add Appointment
+                    </button>
+                    <div class="user-greeting">
+                        <span>Welcome, <strong id="adminName">Barber</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(212, 175, 55, 0.1); color: var(--accent-gold);">
+                        <i data-lucide="indian-rupee"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Today's Earnings</h3>
+                        <div class="value" id="totalToday">₹0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Monthly Earnings</h3>
+                        <div class="value" id="totalMonth">₹0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i data-lucide="check-circle"></i></div>
+                    <div class="stat-info">
+                        <h3>Completed</h3>
+                        <div class="value" id="completedCount">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i data-lucide="clock"></i></div>
+                    <div class="stat-info">
+                        <h3>Upcoming</h3>
+                        <div class="value" id="upcomingCount">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Time</th>
+                            <th>Date</th>
+                            <th>Price (₹)</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeBookingsTable">
+                        <!-- Rows populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Manual Booking Modal -->
+    <div id="bookingModal" class="modal" style="display: none;">
+        <div class="modal-content glass-effect" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Add Manual Appointment</h2>
+                <button onclick="closeModal()" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="manualBookingForm">
+                    <div class="form-group">
+                        <label>Customer Name</label>
+                        <input type="text" id="custName" required class="form-control" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile Number</label>
+                        <input type="tel" id="custMobile" required class="form-control" placeholder="9876543210">
+                    </div>
+                    <div class="form-group">
+                        <label>Service</label>
+                        <select id="custService" required class="form-control">
+                            <option value="">Select Service</option>
+                        </select>
+                    </div>
+                    <div class="form-row" style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex:1;">
+                            <label>Date</label>
+                            <input type="date" id="custDate" required class="form-control">
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Time</label>
+                            <input type="time" id="custTime" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="padding: 1rem 0 0;">
+                        <button type="button" onclick="closeModal()" class="btn-secondary">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Appointment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+    <script src="../scripts/api-config.js"></script>
+    <script src="admin-employee.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
