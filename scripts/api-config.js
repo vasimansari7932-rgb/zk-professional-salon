@@ -4,7 +4,7 @@ const API_CONFIG = {
     // 2. If running on Netlify, use your Render.com URL
     BASE_URL: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
         ? ''
-        : 'https://zk-salon-api.onrender.com', // Replace with your actual Render URL
+        : 'https://zk-professional-salon.onrender.com', // Replace with your actual Render URL
 };
 
 function getApiUrl(endpoint) {
