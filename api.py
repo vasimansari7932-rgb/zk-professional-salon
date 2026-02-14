@@ -20,8 +20,12 @@ app = FastAPI(title="ZK Professional Salon API")
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:8000",
+        "https://zkprofessionalsalon.netlify.app"
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -77,6 +81,8 @@ def read_db():
         data = json.load(f)
         if "products" not in data:
             data["products"] = []
+        if "admin" not in data:
+            data["admin"] = {}
         return data
 
 def write_db(data):
@@ -88,8 +94,8 @@ def write_db(data):
 async def login(req: LoginRequest):
     db = read_db()
     # Check root admin
-    admin = db.get("admin")
-    if admin and admin["email"] == req.email and admin["password"] == req.password:
+    admin = db.get("admin", {})
+    if admin.get("email") == req.email and admin.get("password") == req.password:
         user_res = admin.copy()
         user_res["role"] = "admin"
         user_res["id"] = "admin-id"
@@ -97,7 +103,7 @@ async def login(req: LoginRequest):
         return {"success": True, "user": user_res}
 
     # Check employees
-    user = next((u for u in db["employees"] if u["email"] == req.email and u["password"] == req.password), None)
+    user = next((u for u in db.get("employees", []) if u.get("email") == req.email and u.get("password") == req.password), None)
     if user:
         user_res = user.copy()
         if "password" in user_res: del user_res["password"]
