@@ -33,7 +33,9 @@ async function loadFrontendProducts() {
             const waLink = `https://wa.me/${waNumber}?text=${message}`;
 
             card.innerHTML = `
-                <img src="${p.image}" alt="${p.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300x300?text=Product'">
+                <img src="${p.image}" alt="${p.name} - Premium Salon Product Ahmedabad" class="product-image" 
+                     loading="lazy"
+                     onerror="this.src='https://via.placeholder.com/300x300?text=Product'">
                 <div>
                     <h3>${p.name}</h3>
                     <p class="product-price">₹${p.price.toLocaleString('en-IN')}</p>

@@ -415,7 +415,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return `
           <div class="glass-card product-card">
-            <img src="${imgSrc}" alt="${p.name}" class="product-image"
+            <img src="${imgSrc}" alt="${p.name} - ZK Professional Salon Ahmedabad" class="product-image"
+                 loading="lazy"
                  onerror="this.src='https://placehold.co/400x300/1a1a2e/d4af37?text=Product'">
             <div>
               <h3>${p.name}</h3>

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /products.html
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://zk-professional-salon.onrender.com/sitemap.xml
