@@ -8,6 +8,9 @@ import json
 import os
 import uuid
 import shutil
+import cloudinary
+import cloudinary.uploader
+import requests
 
 # Configuration
 DB_FILE = "db.json"
@@ -15,16 +18,20 @@ UPLOAD_DIR = "uploads"
 if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR)
 
+# Cloudinary Setup
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
+if CLOUDINARY_URL:
+    cloudinary.config(cloudinary_url=CLOUDINARY_URL)
+
+# Remote DB Setup (Optional)
+REMOTE_DB_URL = os.environ.get("REMOTE_DB_URL") # URL to a persistent JSON store
+
 app = FastAPI(title="ZK Professional Salon API")
 
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:8000",
-        "https://zkprofessionalsalon.netlify.app"
-    ],
+    allow_origins=["*"], # Relaxed for simpler persistence transition
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -75,25 +82,40 @@ class Product(BaseModel):
 
 # Database Helpers
 def read_db():
+    if REMOTE_DB_URL:
+        try:
+            res = requests.get(REMOTE_DB_URL)
+            if res.ok:
+                data = res.json()
+                if "products" not in data: data["products"] = []
+                if "admin" not in data: data["admin"] = {}
+                return data
+        except Exception as e:
+            print(f"Remote DB error: {e}")
+            
     if not os.path.exists(DB_FILE):
         return {"employees": [], "bookings": [], "services": [], "products": [], "admin": {}}
     with open(DB_FILE, "r") as f:
         data = json.load(f)
-        if "products" not in data:
-            data["products"] = []
-        if "admin" not in data:
-            data["admin"] = {}
+        if "products" not in data: data["products"] = []
+        if "admin" not in data: data["admin"] = {}
         return data
 
 def write_db(data):
+    # Save local copy anyway
     with open(DB_FILE, "w") as f:
         json.dump(data, f, indent=2)
+    
+    if REMOTE_DB_URL:
+        try:
+            requests.put(REMOTE_DB_URL, json=data)
+        except Exception as e:
+            print(f"Remote DB write error: {e}")
 
 # Endpoints
 @app.post("/api/login")
 async def login(req: LoginRequest):
     db = read_db()
-    # Check root admin
     admin = db.get("admin", {})
     if admin.get("email") == req.email and admin.get("password") == req.password:
         user_res = admin.copy()
@@ -102,7 +124,6 @@ async def login(req: LoginRequest):
         if "password" in user_res: del user_res["password"]
         return {"success": True, "user": user_res}
 
-    # Check employees
     user = next((u for u in db.get("employees", []) if u.get("email") == req.email and u.get("password") == req.password), None)
     if user:
         user_res = user.copy()
@@ -157,13 +178,8 @@ async def update_employee(emp_id: str, data: dict):
     db = read_db()
     for e in db["employees"]:
         if e["id"] == emp_id:
-            # Prevent updating sensitive fields like ID if passed
             if "id" in data: del data["id"]
-            
-            # Special handling for password: only update if provided and not empty
-            if "password" in data and not data["password"]:
-                del data["password"]
-                
+            if "password" in data and not data["password"]: del data["password"]
             e.update(data)
             write_db(db)
             return {"success": True, "employee": e}
@@ -174,10 +190,8 @@ async def delete_employee(emp_id: str):
     db = read_db()
     initial_count = len(db["employees"])
     db["employees"] = [e for e in db["employees"] if e["id"] != emp_id]
-    
     if len(db["employees"]) == initial_count:
         raise HTTPException(status_code=404, detail="Employee not found")
-        
     write_db(db)
     return {"success": True}
 
@@ -225,13 +239,19 @@ async def create_product(
     isActive: bool = Form(True),
     image: UploadFile = File(...)
 ):
-    # Save Image
-    file_ext = image.filename.split(".")[-1]
-    file_name = f"{uuid.uuid4()}.{file_ext}"
-    file_path = os.path.join(UPLOAD_DIR, file_name)
-    
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(image.file, buffer)
+    image_url = ""
+    if CLOUDINARY_URL:
+        # Upload to Cloudinary
+        upload_result = cloudinary.uploader.upload(image.file)
+        image_url = upload_result["secure_url"]
+    else:
+        # Fallback to local
+        file_ext = image.filename.split(".")[-1]
+        file_name = f"{uuid.uuid4()}.{file_ext}"
+        file_path = os.path.join(UPLOAD_DIR, file_name)
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(image.file, buffer)
+        image_url = f"/uploads/{file_name}"
     
     db = read_db()
     new_product = {
@@ -240,7 +260,7 @@ async def create_product(
         "description": description,
         "price": price,
         "isActive": isActive,
-        "image": f"/uploads/{file_name}",
+        "image": image_url,
         "createdAt": get_local_date_iso()
     }
     db["products"].append(new_product)
@@ -267,17 +287,21 @@ async def update_product(
     if isActive is not None: product["isActive"] = isActive
     
     if image:
-        # Delete old image if exists
-        old_image_path = product["image"].lstrip("/")
-        if os.path.exists(old_image_path):
-            os.remove(old_image_path)
-            
-        file_ext = image.filename.split(".")[-1]
-        file_name = f"{uuid.uuid4()}.{file_ext}"
-        file_path = os.path.join(UPLOAD_DIR, file_name)
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(image.file, buffer)
-        product["image"] = f"/uploads/{file_name}"
+        if CLOUDINARY_URL:
+            # Upload to Cloudinary
+            upload_result = cloudinary.uploader.upload(image.file)
+            product["image"] = upload_result["secure_url"]
+        else:
+            # Fallback to local
+            old_image_path = product["image"].lstrip("/")
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
+            file_ext = image.filename.split(".")[-1]
+            file_name = f"{uuid.uuid4()}.{file_ext}"
+            file_path = os.path.join(UPLOAD_DIR, file_name)
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(image.file, buffer)
+            product["image"] = f"/uploads/{file_name}"
         
     write_db(db)
     return {"success": True, "product": product}
@@ -289,28 +313,25 @@ async def delete_product(product_id: str):
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
     
-    # Delete image file
-    image_path = product["image"].lstrip("/")
-    if os.path.exists(image_path):
-        os.remove(image_path)
+    # Cloudinary images don't necessarily need manual delete if we just overwrite/leave them, 
+    # but we could call cloudinary.uploader.destroy if needed.
         
     db["products"] = [p for p in db["products"] if p["id"] != product_id]
     write_db(db)
     return {"success": True}
 
 def get_local_date_iso():
-    # Simple helper for timestamp
     from datetime import datetime
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-# Barbers (Filtered View)
+# Barbers
 @app.get("/api/barbers")
 async def get_barbers():
     db = read_db()
     barbers = [e for e in db.get("employees", []) if e.get("role") == "employee" and e.get("isActive")]
     return [{"id": b["id"], "name": b["name"], "initials": b["name"][0].upper()} for b in barbers]
 
-# Static Files - MUST BE LAST
+# Static Files
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 app.mount("/admin", StaticFiles(directory="admin", html=True), name="admin")
 app.mount("/", StaticFiles(directory=".", html=True), name="frontend")
