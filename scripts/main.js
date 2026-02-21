@@ -338,6 +338,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (closeBtn) {
     closeBtn.addEventListener('click', closeModal);
+    closeBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      closeModal();
+    }, { passive: false });
   }
 
   window.addEventListener('click', (e) => {

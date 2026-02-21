@@ -511,14 +511,16 @@ footer {
 
 .close-modal {
     color: var(--text-secondary);
-    float: right;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s;
     position: absolute;
-    right: 20px;
-    top: 10px;
+    right: 10px;
+    top: 5px;
+    padding: 15px;
+    line-height: 1;
+    z-index: 2100;
 }
 
 .close-modal:hover,
