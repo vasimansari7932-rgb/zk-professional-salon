@@ -21,7 +21,13 @@ if not os.path.exists(UPLOAD_DIR):
 # Cloudinary Setup
 CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
 if CLOUDINARY_URL:
+    # Handle case where user might have pasted the prefix
+    if CLOUDINARY_URL.startswith("CLOUDINARY_URL="):
+        CLOUDINARY_URL = CLOUDINARY_URL.replace("CLOUDINARY_URL=", "")
     cloudinary.config(cloudinary_url=CLOUDINARY_URL)
+    print("DEBUG: Cloudinary configured.")
+else:
+    print("DEBUG: Cloudinary URL not found.")
 
 # Remote DB Setup (Optional)
 REMOTE_DB_URL = os.environ.get("REMOTE_DB_URL") # URL to a persistent JSON store
