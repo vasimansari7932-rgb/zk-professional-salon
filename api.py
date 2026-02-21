@@ -33,8 +33,16 @@ if CLOUDINARY_URL:
 else:
     print("DEBUG: Cloudinary URL not found.")
 
-# Remote DB Setup (Optional)
-REMOTE_DB_URL = os.environ.get("REMOTE_DB_URL") # URL to a persistent JSON store
+# Remote DB Setup (Optional - JSONBin.io recommended)
+JSONBIN_BIN_ID = os.environ.get("JSONBIN_BIN_ID")
+JSONBIN_MASTER_KEY = os.environ.get("JSONBIN_MASTER_KEY")
+REMOTE_DB_URL = f"https://api.jsonbin.io/v3/b/{JSONBIN_BIN_ID}" if JSONBIN_BIN_ID else None
+
+def get_jsonbin_headers():
+    return {
+        "Content-Type": "application/json",
+        "X-Master-Key": JSONBIN_MASTER_KEY
+    }
 
 app = FastAPI(title="ZK Professional Salon API")
 
@@ -92,17 +100,25 @@ class Product(BaseModel):
 
 # Database Helpers
 def read_db():
-    if REMOTE_DB_URL:
+    if REMOTE_DB_URL and JSONBIN_MASTER_KEY:
         try:
-            res = requests.get(REMOTE_DB_URL)
+            res = requests.get(REMOTE_DB_URL, headers=get_jsonbin_headers())
             if res.ok:
-                data = res.json()
+                # JSONBin returns data wrapped in a "record" key
+                response_data = res.json()
+                data = response_data.get("record", response_data)
+                # Ensure structure
                 if "products" not in data: data["products"] = []
-                if "admin" not in data: data["admin"] = {}
+                if "employees" not in data: data["employees"] = []
+                if "services" not in data: data["services"] = []
+                if "bookings" not in data: data["bookings"] = []
                 return data
+            else:
+                print(f"ERROR: Fetching remote DB failed: {res.status_code}")
         except Exception as e:
-            print(f"Remote DB error: {e}")
-            
+            print(f"ERROR: Remote DB access error: {e}")
+    
+    # Fallback to local
     if not os.path.exists(DB_FILE):
         return {"employees": [], "bookings": [], "services": [], "products": [], "admin": {}}
     with open(DB_FILE, "r") as f:
@@ -112,15 +128,18 @@ def read_db():
         return data
 
 def write_db(data):
-    # Save local copy anyway
+    # Always save locally as fallback
     with open(DB_FILE, "w") as f:
         json.dump(data, f, indent=2)
-    
-    if REMOTE_DB_URL:
+
+    if REMOTE_DB_URL and JSONBIN_MASTER_KEY:
         try:
-            requests.put(REMOTE_DB_URL, json=data)
+            # Note: v3/b/<ID> with PUT completely overwrites the bin content
+            res = requests.put(REMOTE_DB_URL, headers=get_jsonbin_headers(), json=data)
+            if not res.ok:
+                print(f"ERROR: Saving to remote DB failed: {res.status_code}")
         except Exception as e:
-            print(f"Remote DB write error: {e}")
+            print(f"ERROR: Remote DB save error: {e}")
 
 # Endpoints
 @app.post("/api/login")
