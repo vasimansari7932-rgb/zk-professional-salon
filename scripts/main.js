@@ -386,19 +386,56 @@ document.addEventListener('DOMContentLoaded', () => {
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 3000);
   }
-  // Product "Add to Cart" Mock
-  document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', function () {
-      const originalText = this.innerText;
-      this.innerText = 'Added!';
-      this.style.backgroundColor = 'var(--text-primary)';
-      this.style.color = 'var(--bg-color)';
+  // ============================================
+  // PREMIUM PRODUCTS — Auto-sync from API
+  // Fetches /api/products/active and renders
+  // the first 3 products on the homepage.
+  // ============================================
+  async function loadHomepageProducts() {
+    const grid = document.getElementById('home-products-grid');
+    if (!grid) return;
 
-      setTimeout(() => {
-        this.innerText = originalText;
-        this.style.backgroundColor = '';
-        this.style.color = '';
-      }, 2000);
-    });
-  });
+    try {
+      const res = await fetch(getApiUrl('/api/products/active'));
+      if (!res.ok) throw new Error('API error');
+      const allProducts = await res.json();
+      const products = allProducts.slice(0, 3); // First 3 only
+
+      if (products.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:2rem;">No products available yet.</div>`;
+        return;
+      }
+
+      grid.innerHTML = products.map(p => {
+        const waText = encodeURIComponent(
+          `Hello ZK Professional Salon 👋\n\nI want to buy this product:\n\n🛍️ Product Name: ${p.name}\n💰 Price: ₹${p.price}\n📍 Delivery Location: Ahmedabad\n🚚 COD Available\n\nPlease confirm availability.`
+        );
+        const waLink = `https://wa.me/919265301656?text=${waText}`;
+        const imgSrc = p.image.startsWith('http') ? p.image : getApiUrl(p.image);
+
+        return `
+          <div class="glass-card product-card">
+            <img src="${imgSrc}" alt="${p.name}" class="product-image"
+                 onerror="this.src='https://placehold.co/400x300/1a1a2e/d4af37?text=Product'">
+            <div>
+              <h3>${p.name}</h3>
+              <p class="product-price">₹${p.price}</p>
+              <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:1rem;">${p.description}</p>
+              <a href="${waLink}" class="btn-secondary"
+                 style="width:100%;display:inline-block;text-align:center;" target="_blank">
+                Buy Now <i data-lucide="message-circle" style="width:16px;height:16px;vertical-align:middle;"></i>
+              </a>
+            </div>
+          </div>`;
+      }).join('');
+
+      lucide.createIcons();
+
+    } catch (e) {
+      console.error('Failed to load products:', e);
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:2rem;">Could not load products. Please refresh.</div>`;
+    }
+  }
+
+  loadHomepageProducts();
 });

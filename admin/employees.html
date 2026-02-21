@@ -61,22 +61,25 @@
             </div>
 
             <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="employeeTable">
-                        <!-- Rows populated by JS -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeTable">
+                            <!-- Rows populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </main>
     </div>
 
@@ -90,21 +93,47 @@
             </div>
             <div class="modal-body">
                 <form id="empForm">
+                    <input type="hidden" id="empId">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" id="empName" required class="form-control">
+                        <input type="text" id="empName" required class="form-control" placeholder="Enter full name">
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" id="empEmail" required class="form-control">
+                        <input type="email" id="empEmail" required class="form-control" placeholder="email@example.com">
                     </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="empPassword" required class="form-control">
+                    <div class="form-row" style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div class="form-group" style="flex: 1; position: relative;">
+                            <label>Password</label>
+                            <div class="input-with-icon" style="position: relative;">
+                                <input type="password" id="empPassword" class="form-control"
+                                    style="padding-right: 40px;" placeholder="Min. 6 characters">
+                                <button type="button" class="toggle-password"
+                                    onclick="togglePasswordVisibility('empPassword', this)"
+                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer;">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                            <small id="pwHint" style="color: var(--text-secondary); font-size: 0.75rem;">Leave blank to
+                                keep current password</small>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Confirm Password</label>
+                            <div class="input-with-icon" style="position: relative;">
+                                <input type="password" id="empConfirmPassword" class="form-control"
+                                    style="padding-right: 40px;" placeholder="Confirm password">
+                                <button type="button" class="toggle-password"
+                                    onclick="togglePasswordVisibility('empConfirmPassword', this)"
+                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer;">
+                                    <i data-lucide="eye"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Mobile Number</label>
-                        <input type="text" id="empMobile" required class="form-control">
+                        <input type="text" id="empMobile" required class="form-control"
+                            placeholder="10-digit mobile number">
                     </div>
                     <div class="form-group">
                         <label>Role</label>
@@ -113,9 +142,11 @@
                             <option value="admin">Administrator</option>
                         </select>
                     </div>
-                    <div class="modal-footer" style="padding: 1.5rem 0 0;">
+                    <div id="formError" style="color: #ff4d4f; font-size: 0.85rem; margin-bottom: 1rem; display: none;">
+                    </div>
+                    <div class="modal-footer" style="padding: 1rem 0 0;">
                         <button type="button" class="btn-secondary" id="cancelEmpBtn">Cancel</button>
-                        <button type="submit" class="btn-primary">Save Employee</button>
+                        <button type="submit" class="btn-primary" id="saveEmpBtn">Save Employee</button>
                     </div>
                 </form>
             </div>

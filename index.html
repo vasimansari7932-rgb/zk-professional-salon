@@ -156,51 +156,11 @@
     <section id="products" class="products">
         <div class="container">
             <h2 class="section-title">Premium Products</h2>
-            <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="glass-card product-card">
-                    <img src="https://images.unsplash.com/photo-1626285861696-9f0bf5a49c6d?q=80&w=2000&auto=format&fit=crop"
-                        alt="Hair Wax" class="product-image">
-                    <div>
-                        <h3>Strong Hold Hair Wax</h3>
-                        <p class="product-price">₹299</p>
-                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">Matte finish,
-                            long lasting hold.</p>
-                        <a href="https://wa.me/919265301656?text=Hello%20ZK%20Professional%20Salon%20%F0%9F%91%8B%0A%0AI%20want%20to%20buy%20this%20product:%0A%0A%F0%9F%9B%8D%EF%B8%8F%20Product%20Name:%20Hair%20Wax%0A%F0%9F%92%B0%20Price:%20%E2%82%B9299%0A%F0%9F%93%8D%20Delivery%20Location:%20Ahmedabad%0A%F0%9F%9A%9A%20COD%20Available%0A%0APlease%20confirm%20availability."
-                            class="btn-secondary" style="width: 100%; display: inline-block; text-align: center;"
-                            target="_blank">Buy Now <i data-lucide="message-circle"
-                                style="width: 16px; height: 16px; vertical-align: middle;"></i></a>
-                    </div>
-                </div>
-                <!-- Product 2 -->
-                <div class="glass-card product-card">
-                    <img src="https://images.unsplash.com/photo-1621607512214-68297480165e?q=80&w=2000&auto=format&fit=crop"
-                        alt="Beard Oil" class="product-image">
-                    <div>
-                        <h3>Nourishing Beard Oil</h3>
-                        <p class="product-price">₹399</p>
-                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">Softens beard,
-                            promotes growth.</p>
-                        <a href="https://wa.me/919265301656?text=Hello%20ZK%20Professional%20Salon%20%F0%9F%91%8B%0A%0AI%20want%20to%20buy%20this%20product:%0A%0A%F0%9F%9B%8D%EF%B8%8F%20Product%20Name:%20Nourishing%20Beard%20Oil%0A%F0%9F%92%B0%20Price:%20%E2%82%B9399%0A%F0%9F%93%8D%20Delivery%20Location:%20Ahmedabad%0A%F0%9F%9A%9A%20COD%20Available%0A%0APlease%20confirm%20availability."
-                            class="btn-secondary" style="width: 100%; display: inline-block; text-align: center;"
-                            target="_blank">Buy Now <i data-lucide="message-circle"
-                                style="width: 16px; height: 16px; vertical-align: middle;"></i></a>
-                    </div>
-                </div>
-                <!-- Product 3 -->
-                <div class="glass-card product-card">
-                    <img src="https://images.unsplash.com/photo-1556228720-19173950cbc6?q=80&w=2000&auto=format&fit=crop"
-                        alt="Shampoo" class="product-image">
-                    <div>
-                        <h3>Daily Care Shampoo</h3>
-                        <p class="product-price">₹499</p>
-                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">Sulfate-free,
-                            gentle cleaning.</p>
-                        <a href="https://wa.me/919265301656?text=Hello%20ZK%20Professional%20Salon%20%F0%9F%91%8B%0A%0AI%20want%20to%20buy%20this%20product:%0A%0A%F0%9F%9B%8D%EF%B8%8F%20Product%20Name:%20Daily%20Care%20Shampoo%0A%F0%9F%92%B0%20Price:%20%E2%82%B9499%0A%F0%9F%93%8D%20Delivery%20Location:%20Ahmedabad%0A%F0%9F%9A%9A%20COD%20Available%0A%0APlease%20confirm%20availability."
-                            class="btn-secondary" style="width: 100%; display: inline-block; text-align: center;"
-                            target="_blank">Buy Now <i data-lucide="message-circle"
-                                style="width: 16px; height: 16px; vertical-align: middle;"></i></a>
-                    </div>
+            <div class="products-grid" id="home-products-grid">
+                <!-- Dynamically loaded from API — first 3 active products -->
+                <div style="grid-column:1/-1; text-align:center; color:var(--accent-gold); padding:2rem;">
+                    <i data-lucide="loader" style="width:24px;height:24px;vertical-align:middle;"></i> Loading
+                    products...
                 </div>
             </div>
             <div class="text-center mt-lg">

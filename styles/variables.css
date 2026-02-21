@@ -40,7 +40,12 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   color: var(--text-primary);
   margin-bottom: var(--spacing-sm);
@@ -117,7 +122,20 @@ button {
 }
 
 /* Utilities */
-.text-gold { color: var(--accent-gold); }
-.text-center { text-align: center; }
-.flex-center { display: flex; justify-content: center; align-items: center; }
-.mt-lg { margin-top: var(--spacing-lg); }
+.text-gold {
+  color: var(--accent-gold);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mt-lg {
+  margin-top: var(--spacing-lg);
+}

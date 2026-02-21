@@ -157,10 +157,29 @@ async def update_employee(emp_id: str, data: dict):
     db = read_db()
     for e in db["employees"]:
         if e["id"] == emp_id:
+            # Prevent updating sensitive fields like ID if passed
+            if "id" in data: del data["id"]
+            
+            # Special handling for password: only update if provided and not empty
+            if "password" in data and not data["password"]:
+                del data["password"]
+                
             e.update(data)
             write_db(db)
-            return {"success": True}
+            return {"success": True, "employee": e}
     raise HTTPException(status_code=404, detail="Employee not found")
+
+@app.delete("/api/employees/{emp_id}")
+async def delete_employee(emp_id: str):
+    db = read_db()
+    initial_count = len(db["employees"])
+    db["employees"] = [e for e in db["employees"] if e["id"] != emp_id]
+    
+    if len(db["employees"]) == initial_count:
+        raise HTTPException(status_code=404, detail="Employee not found")
+        
+    write_db(db)
+    return {"success": True}
 
 # Services
 @app.get("/api/services")

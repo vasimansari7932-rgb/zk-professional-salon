@@ -170,8 +170,16 @@ async function updatePriceOnly(id, newPrice) {
 }
 
 function openManualBookingModal() {
-    document.getElementById('bookingModal').style.display = 'flex';
+    const modal = document.getElementById('bookingModal');
+    modal.style.display = 'flex';
     document.getElementById('custDate').value = getLocalDateString();
+    // Re-init icons inside the modal
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    // Close on backdrop click
+    modal.onclick = function (e) {
+        if (e.target === modal) closeModal();
+    };
 }
 
 function closeModal() {
