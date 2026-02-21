@@ -19,13 +19,17 @@ if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR)
 
 # Cloudinary Setup
-CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL", "").strip()
 if CLOUDINARY_URL:
     # Handle case where user might have pasted the prefix
     if CLOUDINARY_URL.startswith("CLOUDINARY_URL="):
         CLOUDINARY_URL = CLOUDINARY_URL.replace("CLOUDINARY_URL=", "")
-    cloudinary.config(cloudinary_url=CLOUDINARY_URL)
-    print("DEBUG: Cloudinary configured.")
+    try:
+        cloudinary.config(cloudinary_url=CLOUDINARY_URL)
+        print("DEBUG: Cloudinary configured successfully.")
+    except Exception as e:
+        print(f"ERROR: Cloudinary config failed: {e}")
+        CLOUDINARY_URL = None
 else:
     print("DEBUG: Cloudinary URL not found.")
 
@@ -246,12 +250,24 @@ async def create_product(
     image: UploadFile = File(...)
 ):
     image_url = ""
+    # Try Cloudinary if configured
     if CLOUDINARY_URL:
-        # Upload to Cloudinary
-        upload_result = cloudinary.uploader.upload(image.file)
-        image_url = upload_result["secure_url"]
+        try:
+            upload_result = cloudinary.uploader.upload(image.file)
+            image_url = upload_result["secure_url"]
+            print(f"DEBUG: Cloudinary upload success: {image_url}")
+        except Exception as e:
+            print(f"ERROR: Cloudinary upload failed: {e}. Falling back to local.")
+            # Fallback to local
+            image.file.seek(0) # Reset file pointer
+            file_ext = image.filename.split(".")[-1]
+            file_name = f"{uuid.uuid4()}.{file_ext}"
+            file_path = os.path.join(UPLOAD_DIR, file_name)
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(image.file, buffer)
+            image_url = f"/uploads/{file_name}"
     else:
-        # Fallback to local
+        # Standard local storage
         file_ext = image.filename.split(".")[-1]
         file_name = f"{uuid.uuid4()}.{file_ext}"
         file_path = os.path.join(UPLOAD_DIR, file_name)
