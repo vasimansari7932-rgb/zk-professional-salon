@@ -142,6 +142,17 @@ async def login(req: LoginRequest):
     
     raise HTTPException(status_code=401, detail="Invalid credentials")
 
+@app.get("/api/diag")
+async def diagnostic():
+    db = read_db()
+    return {
+        "cloudinary_set": CLOUDINARY_URL is not None,
+        "remote_db_set": REMOTE_DB_URL is not None,
+        "uploads_exists": os.path.exists(UPLOAD_DIR),
+        "db_products_count": len(db.get("products", [])),
+        "server_local_time": get_local_date_iso()
+    }
+
 # Bookings
 @app.get("/api/bookings")
 async def get_bookings():
