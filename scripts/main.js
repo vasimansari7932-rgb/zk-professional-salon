@@ -315,6 +315,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (success) {
         showToast('Booking successful! Redirecting to WhatsApp... ✅');
+
+        // Trigger OneSignal push notification prompt
+        if (typeof triggerPushPrompt === 'function') {
+          triggerPushPrompt();
+        }
+
         appointmentForm.reset();
         closeModal();
         resetSelections();
@@ -332,6 +338,12 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = 'hidden';
       // Default to main fields
       currentStep = 0;
+
+      // Trigger OneSignal push notification prompt if not already subscribed
+      if (typeof triggerPushPrompt === 'function') {
+        triggerPushPrompt();
+      }
+
       exitWizard();
     });
   });
@@ -415,7 +427,8 @@ document.addEventListener('DOMContentLoaded', () => {
           `Hello ZK Professional Salon 👋\n\nI want to buy this product:\n\n🛍️ Product Name: ${p.name}\n💰 Price: ₹${p.price}\n📍 Delivery Location: Ahmedabad\n🚚 COD Available\n\nPlease confirm availability.`
         );
         const waLink = `https://wa.me/919265301656?text=${waText}`;
-        const imgSrc = p.image.startsWith('http') ? p.image : getApiUrl(p.image);
+        const imageUrl = (p.image && typeof p.image === 'object') ? p.image.url : p.image;
+        const imgSrc = imageUrl.startsWith('http') ? imageUrl : getApiUrl(imageUrl);
 
         return `
           <div class="glass-card product-card">

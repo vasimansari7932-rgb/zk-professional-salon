@@ -3,5 +3,6 @@ uvicorn
 pydantic
 python-multipart
 starlette
-cloudinary
-requests
+passlib[bcrypt]
+fastapi-mail
+python-dotenv

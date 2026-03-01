@@ -96,8 +96,7 @@
         "reviewCount": "150"
       },
       "sameAs": [
-        "https://www.facebook.com/zksalon",
-        "https://www.instagram.com/zksalon"
+        "https://www.instagram.com/zk_salon/"
       ]
     }
     </script>
@@ -128,6 +127,33 @@
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest" defer></script>
+
+    <!-- OneSignal SDK -->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function () {
+            OneSignal.init({
+                appId: "3f9f4707-eed8-4762-a675-096f0743253e",
+                safari_web_id: "YOUR_SAFARI_WEB_ID_HERE", // Optional
+                notifyButton: {
+                    enable: false, // Don't show the default bell icon
+                },
+                welcomeNotification: {
+                    "title": "Welcome to ZK Salon",
+                    "message": "Thanks for subscribing to our updates!",
+                    "url": "https://zk-professional-salon.onrender.com"
+                }
+            });
+        });
+
+        // Function to trigger OneSignal prompt
+        function triggerPushPrompt() {
+            OneSignal.push(function () {
+                OneSignal.showNativePrompt();
+            });
+        }
+    </script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles/variables.css?v=2.0">
@@ -432,9 +458,10 @@
                     <p style="color: var(--text-secondary); font-size: 0.9rem;">Professional Grooming. Premium Style.
                     </p>
                     <div class="social-links">
-                        <a href="#" class="social-icon"><i data-lucide="instagram"></i></a>
-                        <a href="#" class="social-icon"><i data-lucide="facebook"></i></a>
-                        <a href="#" class="social-icon"><i data-lucide="twitter"></i></a>
+                        <a href="https://www.instagram.com/zk_salon/" class="social-icon" target="_blank"><i
+                                data-lucide="instagram"></i></a>
+                        <a href="https://share.google/EYILUYVzoGZlMyIzn" class="social-icon" target="_blank"><i
+                                data-lucide="map"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">

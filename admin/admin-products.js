@@ -28,9 +28,10 @@ function renderProducts() {
     }
 
     products.forEach(p => {
+        const imageUrl = (p.image && typeof p.image === 'object') ? p.image.url : p.image;
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><img src="${p.image}" class="product-thumbnail" onerror="this.src='https://via.placeholder.com/50'"></td>
+            <td><img src="${imageUrl}" class="product-thumbnail" onerror="this.src='https://via.placeholder.com/50'"></td>
             <td><strong>${p.name}</strong></td>
             <td>₹${p.price.toLocaleString('en-IN')}</td>
             <td>
@@ -94,7 +95,8 @@ function openEditModal(id) {
 
     const preview = document.getElementById('imagePreview');
     const placeholder = document.getElementById('placeholder');
-    preview.src = p.image;
+    const imageUrl = (p.image && typeof p.image === 'object') ? p.image.url : p.image;
+    preview.src = imageUrl;
     preview.style.display = 'block';
     placeholder.style.display = 'none';
 

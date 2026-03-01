@@ -1,170 +1,69 @@
 {
-  "admin": {
-    "email": "admin@zksalon.com",
-    "password": "admin",
-    "name": "Super Admin"
-  },
   "employees": [
     {
-      "id": "e1-vasim",
-      "name": "Vasim Khan",
-      "email": "vasim@zksalon.com",
-      "password": "pass",
-      "mobile": "9876543210",
+      "id": "970f651d-817b-4659-8eb6-e3ffe022fbdb",
+      "name": "test",
+      "email": "admin@zksalon.com",
+      "password": "$pbkdf2-sha256$29000$j/HeG2OstZaylpIS4hxjDA$TmZFNIw5oKghBo4ZKv9jeAAZ8rAkkhnUByzf/flC8ZI",
+      "mobile": "1234567890",
       "role": "employee",
-      "isActive": true
-    },
-    {
-      "id": "e2-shahid",
-      "name": "Shahid Ali",
-      "email": "shahid@zksalon.com",
-      "password": "pass",
-      "mobile": "9876543211",
-      "role": "employee",
-      "isActive": true
-    },
-    {
-      "id": "13bc768d-66d3-46f1-863a-72d41091d3c7",
-      "name": "Tester Staff",
-      "email": "tester@zksalon.com",
-      "password": "pass",
-      "mobile": "9999999999",
-      "role": "employee",
-      "isActive": true
-    },
-    {
-      "id": "54773f46-06bb-441b-8922-ca4b3dcc2e79",
-      "name": "Tester",
-      "email": "user@gmail.com",
-      "password": "aipX@1234",
-      "mobile": "09898429076",
-      "role": "employee",
-      "isActive": true
-    }
-  ],
-  "services": [
-    {
-      "id": "s1",
-      "name": "Premium Haircut",
-      "price": 25,
-      "duration": 30,
-      "isActive": true
-    },
-    {
-      "id": "s2",
-      "name": "Beard Styling",
-      "price": 15,
-      "duration": 20,
       "isActive": true
     }
   ],
   "bookings": [
     {
-      "id": "b1",
-      "customerName": "John Doe",
-      "mobile": "1234567890",
-      "serviceId": "s1",
-      "serviceName": "Haircut",
-      "date": "2026-02-15",
-      "time": "10:00",
-      "barberId": "e1-vasim",
-      "barberName": "Vasim Khan",
-      "status": "completed",
-      "price": 500
-    },
-    {
-      "id": "b2",
-      "customerName": "Jane Smith",
-      "mobile": "0987654321",
-      "serviceId": "s1",
-      "serviceName": "Haircut",
-      "date": "2026-02-15",
-      "time": "11:00",
-      "barberId": "13bc768d-66d3-46f1-863a-72d41091d3c7",
-      "barberName": "Tester Staff",
-      "status": "completed",
-      "price": 750
-    },
-    {
-      "id": "b3",
-      "customerName": "Sam Altman",
-      "mobile": "5556667777",
-      "serviceId": "s1",
-      "serviceName": "Haircut",
-      "date": "2026-02-15",
-      "time": "12:00",
-      "barberId": "e1-vasim",
-      "barberName": "Vasim Khan",
-      "status": "upcoming",
-      "price": 0
-    },
-    {
-      "id": "f4681218-b8f3-4d24-873a-ab13e0bdc861",
-      "customerName": "Vasim Ansari",
-      "mobile": "9898429076",
-      "serviceId": "Hair Spa",
-      "serviceName": "Hair Spa Treatment",
-      "date": "2026-02-21",
-      "time": "11:00",
-      "barberId": "13bc768d-66d3-46f1-863a-72d41091d3c7",
-      "barberName": "Tester Staff",
-      "status": "upcoming",
-      "price": 0.0
-    },
-    {
-      "id": "f8af1a27-d24a-4ebd-aa2c-569df993d8b6",
-      "customerName": "Vasim Ansari",
-      "mobile": "9898429076",
+      "id": "5e123dc7-593b-4caf-aa87-6862b072ca78",
+      "customerName": "trtr",
+      "mobile": "4354435434534",
       "serviceId": "Face Cleanup",
       "serviceName": "Face Cleanup",
-      "date": "2026-02-22",
-      "time": "11:00",
-      "barberId": "54773f46-06bb-441b-8922-ca4b3dcc2e79",
-      "barberName": "Tester",
-      "status": "completed",
-      "price": 1000
-    },
-    {
-      "id": "dfd233f5-8e96-4e26-91c7-c72a8e1706f2",
-      "customerName": "rtert",
-      "mobile": "34543453454",
-      "serviceId": "s1",
-      "serviceName": "Premium Haircut",
-      "date": "2026-02-22",
-      "time": "15:49",
-      "barberId": "54773f46-06bb-441b-8922-ca4b3dcc2e79",
-      "barberName": "Tester",
-      "status": "completed",
-      "price": 5000
+      "date": "2026-03-08",
+      "time": "19:00",
+      "barberId": "970f651d-817b-4659-8eb6-e3ffe022fbdb",
+      "barberName": "test",
+      "status": "upcoming",
+      "price": 0.0
     }
   ],
+  "services": [],
   "products": [
     {
-      "id": "6f4c6fb5-79bf-4e46-903f-9d39265e29f9",
+      "id": "f4b4c8a8-230e-422a-a375-1f8459cb9a49",
+      "name": "Premium Wax",
+      "description": "High quality wax for professional styling.",
+      "price": 750.0,
+      "isActive": true,
+      "image": {
+        "filename": "beb5a967-ee5f-4074-9ed3-a020c3b2276b.png",
+        "path": "uploads\\images\\beb5a967-ee5f-4074-9ed3-a020c3b2276b.png",
+        "url": "/uploads/images/beb5a967-ee5f-4074-9ed3-a020c3b2276b.png",
+        "fileType": "image/png",
+        "fileSize": 1034,
+        "uploadedDate": "2026-03-01 11:16:05",
+        "entityId": "f4b4c8a8-230e-422a-a375-1f8459cb9a49"
+      },
+      "createdAt": "2026-03-01 11:16:06"
+    },
+    {
+      "id": "5e0dfff1-0e44-4025-926d-1e983eb9581e",
       "name": "test",
       "description": "test",
-      "price": 1000.0,
+      "price": 100.0,
       "isActive": true,
-      "image": "/uploads/2297c201-4c1e-4e80-8dea-b2d7a2400bbf.png",
-      "createdAt": "2026-02-15 03:59:59"
-    },
-    {
-      "id": "0c0ad22f-88ca-49f4-90ae-b781d272815e",
-      "name": "test",
-      "description": "teater",
-      "price": 500.0,
-      "isActive": true,
-      "image": "/uploads/a0c21cc9-09f9-40e8-a0dc-2e9d966a5ea8.png",
-      "createdAt": "2026-02-15 12:10:19"
-    },
-    {
-      "id": "5c2397e9-905e-4f88-a718-566604d79682",
-      "name": "test",
-      "description": "testets",
-      "price": 500.0,
-      "isActive": true,
-      "image": "/uploads/83f4d63c-1dfa-4152-b28b-1b7cf4becf4c.png",
-      "createdAt": "2026-02-21 14:35:16"
+      "image": {
+        "filename": "aa88f7e0-3b36-4ea2-84a5-2d2bac05ab1f.png",
+        "path": "uploads\\images\\aa88f7e0-3b36-4ea2-84a5-2d2bac05ab1f.png",
+        "url": "/uploads/images/aa88f7e0-3b36-4ea2-84a5-2d2bac05ab1f.png",
+        "fileType": "image/png",
+        "fileSize": 1941673,
+        "uploadedDate": "2026-03-01 11:29:04",
+        "entityId": "5e0dfff1-0e44-4025-926d-1e983eb9581e"
+      },
+      "createdAt": "2026-03-01 11:29:04"
     }
-  ]
+  ],
+  "admin": {
+    "email": "dzirevasim@gmail.com",
+    "password": "$pbkdf2-sha256$29000$oXTOuXdOyZmTMoZQyhlD6A$cQdwx1Avwp/cR101egO1cBR2f6xLq/usNGfyYetam/4"
+  }
 }
